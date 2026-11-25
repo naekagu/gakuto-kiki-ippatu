@@ -6,6 +6,14 @@
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:," />
     <title>ガクトさん危機一髪！</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7KZ8EMJZV1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7KZ8EMJZV1');
+    </script>
     <script>
       // ============================================================
       // 読み込みフォールバック（公開ページ対策）：
@@ -996,8 +1004,8 @@
           <div class="value"><span id="hudBest">0</span><small> m</small></div>
         </div>
         <div class="hud-box hud-env">
-          <div class="label">てんき ZONE</div>
-          <div class="value"><span id="hudEnv">ひる</span><small id="hudEnvNext"></small></div>
+          <div class="label">シーン ZONE</div>
+          <div class="value"><span id="hudEnv">せつげん</span><small id="hudEnvNext"></small></div>
         </div>
         <div class="hud-box hud-charge">
           <div class="label" id="chargeLabel">ジャンプパワー（長押し）</div>
@@ -1086,7 +1094,7 @@
           <div class="card">
             <p class="death-cause" id="overCause">死因：石につまづいた</p>
             <div class="result-dist"><span id="overDist">0</span><small> m</small></div>
-            <p class="result-best">てんき：<span id="overEnv">ひる</span> ／ 障害物かいひ：<span id="overClear">0</span> コ ／ ベスト記録：<span id="overBest">0</span> m ／ 合計プレイ時間：<span id="overPlayTime">0秒</span></p>
+            <p class="result-best">シーン：<span id="overEnv">せつげん</span> ／ 障害物かいひ：<span id="overClear">0</span> コ ／ ベスト記録：<span id="overBest">0</span> m ／ 合計プレイ時間：<span id="overPlayTime">0秒</span></p>
             <p class="new-record" id="newRecord" hidden>★ NEW RECORD!</p>
             <p class="unlock-notice" id="unlockNotice" hidden></p>
             <div class="btn-row">
@@ -1341,10 +1349,10 @@
           cloud: [255, 255, 255],
         },
       };
-      let zoneEnvs = ["day"];   // 区間番号 → 環境キー
+      let zoneEnvs = ["snowfield"];   // 区間番号 → 環境キー（区間0＝ステージ1はせつげん確定）
       let currentZone = 0;
-      let activeEnv = "day";
-      let prevEnv = "day";
+      let activeEnv = "snowfield";
+      let prevEnv = "snowfield";
       let envTrans = 1;         // 0→1 で前環境から現環境へクロスフェード
       function envForZone(z) {
         while (zoneEnvs.length <= z) {
@@ -2675,7 +2683,7 @@
           { label: "そくど SPEED", value: (hudSpeed ? hudSpeed.textContent : "0") + " km/h" },
           { label: "かいひ CLEAR", value: (hudClear ? hudClear.textContent : "0") + " コ" },
           { label: "ベスト BEST", value: (hudBest ? hudBest.textContent : "0") + " m" },
-          { label: "てんき ZONE", value: hudEnv ? hudEnv.textContent : "", sub: nextEnvLabel ? "次 " + nextEnvLabel : "" },
+          { label: "シーン ZONE", value: hudEnv ? hudEnv.textContent : "", sub: nextEnvLabel ? "次 " + nextEnvLabel : "" },
         ];
         const gap = 8 * s, pad = 8 * s;
         const boxW = (W - pad * 2 - gap * (hudItems.length - 1)) / hudItems.length;
@@ -3056,7 +3064,7 @@
         return [
           "ガクトさん危機一髪！で " + lastResult.dist + "m 滑った！",
           (lastResult.causeText ? lastResult.causeText : ""),
-          "てんき：" + (lastResult.env || "ひる") + "／乗り物：" + lastResult.vehicle + "／障害物かいひ：" + lastResult.clear + "コ／ベスト：" + lastResult.best + "m" + (lastResult.record ? " ★NEW RECORD!" : ""),
+          "シーン：" + (lastResult.env || "せつげん") + "／乗り物：" + lastResult.vehicle + "／障害物かいひ：" + lastResult.clear + "コ／ベスト：" + lastResult.best + "m" + (lastResult.record ? " ★NEW RECORD!" : ""),
           "#ガクトさん危機一髪",
         ].filter(function (line) { return line !== ""; }).join("\n");
       }
@@ -3134,7 +3142,7 @@
             { label: "そくど SPEED", value: shotSpeed + " km/h" },
             { label: "かいひ CLEAR", value: shotClear + " コ" },
             { label: "ベスト BEST", value: shotBest + " m" },
-            { label: "てんき ZONE", value: String(shotEnv), sub: shotNextEnv ? "次 " + shotNextEnv : "" },
+            { label: "シーン ZONE", value: String(shotEnv), sub: shotNextEnv ? "次 " + shotNextEnv : "" },
           ];
           const gap = 8 * s, pad = 8 * s;
           const boxW = (shot.width - pad * 2 - gap * (hudItems.length - 1)) / hudItems.length;
@@ -3412,13 +3420,13 @@
         bestSignPassed = false;
         bestSignSwept = false;
         if (unlockNotice) unlockNotice.hidden = true;
-        // 背景ゾーンを初期化：スタートは昼、次の区間以降を先に確定させる
-        zoneEnvs = ["day"];
+        // 背景ゾーンを初期化：ステージ1（最初の区間）はせつげん確定、次の区間以降を先に確定させる
+        zoneEnvs = ["snowfield"];
         envForZone(6);
         currentZone = 0;
-        activeEnv = "day"; prevEnv = "day"; envTrans = 1;
-        if (hudEnv) hudEnv.textContent = ENV_LABEL.day;
-        if (hudEnvNext) hudEnvNext.textContent = " " + envSpeedLabel("day") + " / 次 " + ENV_LABEL[envForZone(1)];
+        activeEnv = "snowfield"; prevEnv = "snowfield"; envTrans = 1;
+        if (hudEnv) hudEnv.textContent = ENV_LABEL.snowfield;
+        if (hudEnvNext) hudEnvNext.textContent = " " + envSpeedLabel("snowfield") + " / 次 " + ENV_LABEL[envForZone(1)];
         clearCount = 0;
         timeScale = 1; slowmoActive = false; slowmoTarget = null; slowmoGapDoneEdge = null;
         // 雪崩イベントを初期化：最初の80mは雪崩発生しない。
