@@ -1122,7 +1122,6 @@
         </div>
         <div class="share-row">
           <a class="x-btn" id="btnShareX" href="https://x.com/intent/post" target="_blank" rel="noopener noreferrer">𝕏 にポストする</a>
-          <button class="insta-btn" id="btnShareInsta" type="button">📷 Instagramに投稿</button>
           <button class="shot-btn" id="btnShot" type="button" disabled>📸 スクショを保存</button>
           <button class="video-btn" id="btnVideo" type="button" disabled>🎬 動画を保存（処理中…）</button>
         </div>
@@ -2593,7 +2592,6 @@
       // 録画データはメモリ上だけに持ち、保存はダウンロードのみ。
       // ============================================================
       const btnShareX = document.getElementById("btnShareX");
-      const btnShareInsta = document.getElementById("btnShareInsta");
       const btnVideo = document.getElementById("btnVideo");
       const recNote = document.getElementById("recNote");
       const recBadge = document.getElementById("recBadge");
@@ -3092,7 +3090,7 @@
         if (!shotNote) return;
         if (!deathShotBlob) { shotNote.textContent = ""; shotNote.hidden = true; return; }
         shotNote.hidden = false;
-        shotNote.textContent = "「𝕏 にポストする」を押すと、まずスクショを保存してから、リザルトの文言が入ったXの投稿画面を外部ブラウザで開きます。Xの仕様上、画像の自動添付はできないため、投稿画面で保存したスクショを添付してください。";
+        shotNote.textContent = "「スクショを保存」してから「𝕏 にポストする」を押してください、リザルトが入ったXの投稿画面を外部ブラウザで開きます。投稿画面では保存したスクショを添付してください。";
       }
       const sharePanel = document.getElementById("sharePanel");
       function captureDeathShot() {
@@ -3309,48 +3307,6 @@
         refreshXLink();
         if (deathShotBlob) downloadDeathShot();
       });
-      // ============================================================
-      // Instagram投稿ボタン
-      // Instagramには X のような「本文入り投稿画面を開く」公式
-      // リンクがないため、ボタン1つで投稿までは完結できない。
-      // 代わりに押下時に、①スクショを保存 ②リザルトの文言を
-      // クリップボードへコピー ③Instagramを開く、までを
-      // 自動で行う。あとはInstagram側で保存した
-      // 画像を選び、本文欄に貼り付けて投稿してもらう。
-      // クリップボードへのコピーは Clipboard API を優先し、
-      // 使えない環境では一時テキストエリア＋execCommand に
-      // フォールバックする。Instagramを開く処理はコピーの
-      // 成否に関わらず必ず実行する。
-      // ============================================================
-      function fallbackCopyText(text) {
-        try {
-          const ta = document.createElement("textarea");
-          ta.value = text;
-          ta.setAttribute("readonly", "");
-          ta.style.position = "fixed";
-          ta.style.opacity = "0";
-          document.body.appendChild(ta);
-          ta.select();
-          ta.setSelectionRange(0, ta.value.length);
-          let ok = false;
-          try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
-          ta.remove();
-          return ok;
-        } catch (e) { return false; }
-      }
-      function copyTextForInstagram(text) {
-        if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-          return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return fallbackCopyText(text); });
-        }
-        return Promise.resolve(fallbackCopyText(text));
-      }
-      if (btnShareInsta) btnShareInsta.addEventListener("click", function () {
-        if (deathShotBlob) downloadDeathShot();
-        copyTextForInstagram(shareText()).then(function () {
-          window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
-        });
-      });
-
       // ---------- Flow ----------
       const vehSkiBtn = document.getElementById("vehSki");
       const vehBoardBtn = document.getElementById("vehBoard");
