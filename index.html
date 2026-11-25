@@ -13,6 +13,25 @@
     <meta property="og:title" content="ガクトさん危機一髪！" />
     <meta property="og:description" content="ドパユキ系ローグライクジャンプアクションゲーム。ジャンプだけで雪山を滑り降り、障害物を避けて何m滑れるかに挑戦！" />
     <meta property="og:url" content="https://naekagu.github.io/gakuto-kiki-ippatu/" />
+    <link rel="canonical" href="https://naekagu.github.io/gakuto-kiki-ippatu/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "ガクトさん危機一髪！",
+        "description": "ドパユキ系ローグライクジャンプアクションゲーム。ジャンプだけで雪山を滑り降り、障害物を避けて何m滑れるかに挑戦！",
+        "url": "https://naekagu.github.io/gakuto-kiki-ippatu/",
+        "image": "https://naekagu.github.io/gakuto-kiki-ippatu/og-image.png",
+        "genre": ["アクション", "ローグライク"],
+        "gamePlatform": "Webブラウザ",
+        "applicationCategory": "Game",
+        "operatingSystem": "Any",
+        "inLanguage": "ja",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+        "author": { "@type": "Person", "name": "神楽ガクト" }
+      }
+    </script>
     <meta property="og:image" content="https://naekagu.github.io/gakuto-kiki-ippatu/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -808,6 +827,32 @@
         color: var(--blue);
         text-decoration: underline;
       }
+      /* ---------- ゲーム紹介（SEO用の文章セクション） ---------- */
+      .about-game {
+        margin-top: 18px;
+        background: var(--panel);
+        border: 3px solid var(--panel-edge);
+        border-radius: 14px;
+        padding: 14px 18px 8px;
+        box-shadow: 0 4px 0 var(--shadow);
+        text-align: left;
+        line-height: 1.75;
+        font-size: 13.5px;
+      }
+      .about-game h2 {
+        font-family: "DotGothic16", sans-serif;
+        font-size: 20px;
+        margin: 0 0 6px;
+        letter-spacing: 0.04em;
+      }
+      .about-game h3 {
+        font-size: 14.5px;
+        margin: 12px 0 4px;
+        color: var(--ink);
+      }
+      .about-game p { margin: 0 0 8px; }
+      .about-game ul { margin: 0 0 8px; padding-left: 20px; }
+      .about-game li { margin-bottom: 2px; }
       .go-flash {
         position: absolute;
         inset: 0;
@@ -1173,6 +1218,22 @@
       <p class="keys-help">
         <kbd>Space</kbd> 長押し→離してジャンプ ／ スマホは画面タップ＆長押し
       </p>
+
+      <section class="about-game">
+        <h2>ガクトさん危機一髪！について</h2>
+        <p>「ガクトさん危機一髪！」は、ドパユキ系ローグライクジャンプアクションゲームです。雪山を自動で滑り降りながら、操作はジャンプだけ。岩・木・鹿・柵・熊などの障害物や崖を避けて、どこまで滑れるかに挑戦します。記録はメートル単位で表示され、自己ベスト更新を目指して何度でも挑戦できます。ブラウザでそのまま遊べる無料ゲームで、スマートフォンとPCのどちらにも対応しています。</p>
+        <h3>遊び方</h3>
+        <p>画面タップまたは Space キーを長押しするとジャンプパワーがたまり、離すとジャンプします。長くためるほど高く遠くへ飛べます。障害物が近づくとスローモーションになるので、タイミングを合わせて飛び越えてください。崖に落ちたり障害物にぶつかったりするとゲームオーバーです。</p>
+        <h3>ゲームの特徴</h3>
+        <ul>
+          <li>キャラクターは全4種類。スノーボーダーで始まり、200m・500m・800m到達でスキーヤー、スキージャンプ、プロボーダーが解放されます。</li>
+          <li>シーンは200mごとに変化します。せつげん、ゆうがた、よる、ふぶきなど、景色と滑り心地が変わります。</li>
+          <li>雪崩イベントが発生すると、迫る雪の壁から逃げ切らなければなりません。</li>
+          <li>230mごとに現れる星を取ると、7秒間無敵になって障害物をなぎ倒せます。</li>
+          <li>結果はX（旧Twitter）にポストして、滑走距離をシェアできます。</li>
+        </ul>
+        <p>なえかぐチャンネル／神楽ガクトが制作したブラウザゲームです。キミの滑走距離は何m？</p>
+      </section>
 
       <footer class="site-footer">
         <p class="footer-name">なえかぐチャンネル / 神楽ガクト</p>

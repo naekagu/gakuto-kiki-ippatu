@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://naekagu.github.io/gakuto-kiki-ippatu/sitemap.xml
