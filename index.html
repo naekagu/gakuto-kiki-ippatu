@@ -6,6 +6,20 @@
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:," />
     <title>ガクトさん危機一髪！</title>
+    <meta name="description" content="ドパユキ系ローグライクジャンプアクションゲーム。ジャンプだけで雪山を滑り降り、障害物を避けて何m滑れるかに挑戦！" />
+    <!-- OGP：URLを貼ったときに表示されるカード（タイトル・説明・ゲーム画面のサムネ） -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ガクトさん危機一髪！" />
+    <meta property="og:title" content="ガクトさん危機一髪！" />
+    <meta property="og:description" content="ドパユキ系ローグライクジャンプアクションゲーム。ジャンプだけで雪山を滑り降り、障害物を避けて何m滑れるかに挑戦！" />
+    <meta property="og:url" content="https://naekagu.github.io/gakuto-kiki-ippatu/" />
+    <meta property="og:image" content="https://naekagu.github.io/gakuto-kiki-ippatu/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ガクトさん危機一髪！" />
+    <meta name="twitter:description" content="ドパユキ系ローグライクジャンプアクションゲーム。ジャンプだけで雪山を滑り降り、障害物を避けて何m滑れるかに挑戦！" />
+    <meta name="twitter:image" content="https://naekagu.github.io/gakuto-kiki-ippatu/og-image.png" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7KZ8EMJZV1"></script>
     <script>
@@ -3059,12 +3073,15 @@
       // 共有用として機能しないため使わず、この固定URLを使う。
       const GAME_SHARE_URL = "https://naekagu.github.io/gakuto-kiki-ippatu/";
       function shareText() {
+        // 死因（例：「木に衝突した」）の末尾「た」を「て」に変えて
+        // 「「575m」で木に衝突して死亡…！」の形にする。
+        const causeTe = (lastResult.cause || "障害物に衝突した").replace(/た$/, "て");
         return [
-          "ガクトさん危機一髪！で " + lastResult.dist + "m 滑った！",
-          (lastResult.causeText ? lastResult.causeText : ""),
-          "シーン：" + (lastResult.env || "せつげん") + "／乗り物：" + lastResult.vehicle + "／障害物かいひ：" + lastResult.clear + "コ／ベスト：" + lastResult.best + "m" + (lastResult.record ? " ★NEW RECORD!" : ""),
-          "#ガクトさん危機一髪",
-        ].filter(function (line) { return line !== ""; }).join("\n");
+          "「" + lastResult.dist + "m」で" + causeTe + "死亡…！",
+          "ガクトさん危機一髪！ キミの滑走距離は何m？",
+          "使用キャラ：" + lastResult.vehicle,
+          "#ナエゲームス #なえかぐチャンネル",
+        ].join("\n");
       }
       // X投稿専用の本文：リザルト文言の末尾にゲームURLを直接入れる。
       // url パラメータを別に付けるとスマホで落ちることがあるうえ、
