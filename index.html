@@ -3997,12 +3997,12 @@
           // アイスバーン：摩擦がほぼ無く、乗っている間ぐんぐん加速する
           if (iceNow && !p.charging) {
             p.speed += 780 * dt;
-            if (Math.random() < 0.5) spawnSpray(p.x - 14, p.y, 1, 0.5);
+            if (Math.random() < 0.5) spawnSpray(p.x - 14, p.y, 6, 0.5);
           }
           // 減速ゾーン：強い抵抗でぐっと速度が落ちる
           if (slowNow && !p.charging) {
             p.speed -= 950 * dt;
-            if (Math.random() < 0.5) spawnSpray(p.x - 14, p.y, 1, 0.5);
+            if (Math.random() < 0.5) spawnSpray(p.x - 14, p.y, 6, 0.5);
           }
           // 目標速度へ寄せる（減速ゾーンでは目標への戻しも速くして効きを強める）
           const rate = V.accel * dt * (slowNow ? 2.2 : 1);
@@ -4033,7 +4033,8 @@
             p.lastGroundY = ng;
             p.slope = slopeAt(nx);
             p.angle = Math.atan(p.slope);
-            if (p.speed > 200 && Math.random() < 0.55) spawnSpray(p.x - 14, p.y, 1, 0.7);
+            // 板の裏に舞い上がる雪（スプレー）：量は従来の6倍で試行中（2026-11-26、ガクト確認待ち）
+            if (p.speed > 200 && Math.random() < 0.55) spawnSpray(p.x - 14, p.y, 6, 0.7);
           }
         }
 
